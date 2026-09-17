@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz EducaTV Campinas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="fundo" aria-hidden="true"></div>
+
+  <main class="container">
+
+    <header>
+      <img src="Coruja.jpeg" alt="Mascote da EducaTV Campinas" class="avatar">
+      <h1>Quiz EducaTV Campinas</h1>
+      <p>Cinco perguntas rápidas sobre a TV educativa da cidade.</p>
+    </header>
+
+    <div class="progresso" id="progresso">
+      <div class="progresso__texto">
+        <span id="progresso-rotulo">0 de 5 respondidas</span>
+        <span id="progresso-pct">0%</span>
+      </div>
+      <div class="progresso__trilho">
+        <div class="progresso__barra" id="progresso-barra"></div>
+      </div>
+    </div>
+
+    <form id="quiz" novalidate>
+      <!-- as perguntas são inseridas pelo script.js -->
+      <button type="submit" class="botao-principal">Ver meu resultado</button>
+    </form>
+
+    <section id="resultado" class="escondido" tabindex="-1">
+      <div class="placar">
+        <div class="placar__interno">
+          <span class="placar__numero" id="placar-numero">0</span>
+          <span class="placar__total">de 5</span>
+        </div>
+      </div>
+
+      <h2 id="resultado-titulo"></h2>
+      <p class="resultado__texto" id="resultado-texto"></p>
+
+      <div class="gabarito">
+        <h3>Como você foi em cada pergunta</h3>
+        <ul id="gabarito-lista"></ul>
+      </div>
+
+      <p class="convite">Acompanhe a EducaTV Campinas:</p>
+
+      <a href="https://www.instagram.com/educatvcampinas" target="_blank" rel="noopener" class="botao-social instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11a4.3 4.3 0 1 1 4.3-4.3 4.3 4.3 0 0 1-4.3 4.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"/></svg>
+        Seguir no Instagram
+      </a>
+
+      <a href="https://www.youtube.com/@educatvcampinas" target="_blank" rel="noopener" class="botao-social youtube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .4 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .6-4.5 31 31 0 0 0-.6-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg>
+        Inscrever-se no YouTube
+      </a>
+
+      <button type="button" class="botao-refazer" id="btn-refazer">Refazer o quiz</button>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

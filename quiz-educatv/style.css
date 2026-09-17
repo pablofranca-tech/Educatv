@@ -1,0 +1,413 @@
+/* ==========================================================
+   EducaTV Campinas — Quiz
+   Paleta: azul da marca + amarelo/laranja dos olhos da coruja
+   ========================================================== */
+
+   :root {
+    --azul-escuro: #062b57;
+    --azul: #0a4a8f;
+    --azul-claro: #1c7ed6;
+    --amarelo: #ffb703;
+    --laranja: #f48c06;
+    --tinta: #16263b;
+    --tinta-suave: #5a6b7d;
+    --borda: #dde6f1;
+    --papel: #ffffff;
+    --papel-suave: #f4f8fd;
+    --raio: 16px;
+    --sombra: 0 24px 60px rgba(3, 20, 43, 0.35);
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+    color: var(--tinta);
+    background-color: var(--azul-escuro);
+    min-height: 100vh;
+    padding: 32px 18px 56px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* ===== FUNDO COM A CORUJA ===== */
+  .fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: url('Coruja.jpeg');
+    background-size: cover;
+    background-position: 50% 12%;
+    background-repeat: no-repeat;
+  }
+  
+  /* Véu azul por cima da foto: mantém a coruja visível e o texto legível */
+  .fundo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(6, 43, 87, 0.30) 0%, rgba(6, 43, 87, 0.78) 55%, rgba(3, 20, 43, 0.92) 100%);
+  }
+  
+  /* ===== CARTÃO PRINCIPAL ===== */
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 620px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 28px;
+    padding: 36px 32px 32px;
+    box-shadow: var(--sombra);
+  }
+  
+  /* ===== CABEÇALHO ===== */
+  header {
+    text-align: center;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--borda);
+    margin-bottom: 26px;
+  }
+  
+  .avatar {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    border: 5px solid var(--papel);
+    box-shadow: 0 10px 24px rgba(10, 74, 143, 0.35);
+    display: block;
+    margin: 0 auto 16px;
+  }
+  
+  header h1 {
+    font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: clamp(26px, 5vw, 34px);
+    color: var(--azul);
+    line-height: 1.15;
+  }
+  
+  header p {
+    color: var(--tinta-suave);
+    font-size: 16px;
+    margin-top: 6px;
+  }
+  
+  /* ===== BARRA DE PROGRESSO ===== */
+  .progresso {
+    margin-bottom: 28px;
+  }
+  
+  .progresso__texto {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tinta-suave);
+    margin-bottom: 8px;
+  }
+  
+  .progresso__trilho {
+    height: 8px;
+    background: var(--borda);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  
+  .progresso__barra {
+    height: 100%;
+    width: 0%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--azul), var(--azul-claro));
+    transition: width 0.35s ease;
+  }
+  
+  /* ===== PERGUNTAS ===== */
+  .pergunta {
+    border: 0;
+    padding: 0 0 26px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid var(--borda);
+  }
+  
+  .pergunta:last-of-type {
+    border-bottom: 0;
+    margin-bottom: 8px;
+  }
+  
+  .pergunta legend {
+    font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--tinta);
+    margin-bottom: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  
+  .pergunta__numero {
+    flex: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--azul-claro);
+    background: var(--papel-suave);
+    border-radius: 99px;
+    padding: 2px 11px;
+  }
+  
+  /* Opções de resposta */
+  .opcao {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 16px;
+    margin-top: 9px;
+    background: var(--papel);
+    border: 2px solid var(--borda);
+    border-radius: var(--raio);
+    cursor: pointer;
+    font-size: 16px;
+    transition: border-color 0.18s ease, background 0.18s ease;
+  }
+  
+  .opcao:hover { border-color: var(--azul-claro); background: var(--papel-suave); }
+  
+  /* Esconde o radio nativo, mantendo acessibilidade */
+  .opcao input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .opcao__letra {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--azul);
+    background: var(--papel-suave);
+    border: 2px solid var(--borda);
+    transition: all 0.18s ease;
+  }
+  
+  .opcao:has(input:checked) {
+    border-color: var(--azul);
+    background: #eaf3fd;
+  }
+  
+  .opcao:has(input:checked) .opcao__letra {
+    background: var(--azul);
+    border-color: var(--azul);
+    color: #fff;
+  }
+  
+  .opcao:has(input:focus-visible) {
+    outline: 3px solid var(--amarelo);
+    outline-offset: 2px;
+  }
+  
+  /* Pergunta sem resposta ao enviar */
+  .pergunta.faltando legend { color: #b42318; }
+  .pergunta.faltando .opcao { border-color: #f3c0bb; }
+  
+  .aviso {
+    font-size: 14px;
+    font-weight: 700;
+    color: #b42318;
+    margin-top: 10px;
+  }
+  
+  /* ===== BOTÃO ===== */
+  .botao-principal {
+    width: 100%;
+    padding: 17px;
+    font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+    border: 0;
+    border-radius: var(--raio);
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(10, 74, 143, 0.3);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  
+  .botao-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(10, 74, 143, 0.4);
+  }
+  
+  .botao-principal:active { transform: translateY(0); }
+  
+  .botao-principal:focus-visible {
+    outline: 3px solid var(--amarelo);
+    outline-offset: 3px;
+  }
+  
+  /* ===== RESULTADO ===== */
+  #resultado {
+    text-align: center;
+    padding-top: 8px;
+  }
+  
+  .placar {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(var(--amarelo) var(--fatia, 0deg), var(--borda) 0deg);
+  }
+  
+  .placar__interno {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    align-content: center;
+  }
+  
+  .placar__numero {
+    font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--azul);
+    line-height: 1;
+  }
+  
+  .placar__total {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--tinta-suave);
+  }
+  
+  #resultado h2 {
+    font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+    font-size: 24px;
+    color: var(--azul);
+    margin-bottom: 6px;
+  }
+  
+  .resultado__texto {
+    color: var(--tinta-suave);
+    font-size: 16px;
+    max-width: 42ch;
+    margin: 0 auto 22px;
+  }
+  
+  /* Gabarito */
+  .gabarito {
+    text-align: left;
+    background: var(--papel-suave);
+    border-radius: var(--raio);
+    padding: 18px 20px;
+    margin-bottom: 26px;
+  }
+  
+  .gabarito h3 {
+    font-family: 'Baloo 2', 'Segoe UI', sans-serif;
+    font-size: 17px;
+    color: var(--tinta);
+    margin-bottom: 10px;
+  }
+  
+  .gabarito li {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 15px;
+    border-top: 1px solid var(--borda);
+  }
+  
+  .gabarito li:first-of-type { border-top: 0; }
+  
+  .gabarito .marca { flex: none; font-weight: 700; }
+  .gabarito .certo .marca { color: #2f9e44; }
+  .gabarito .errado .marca { color: #b42318; }
+  .gabarito .errado span:last-child { color: var(--tinta-suave); }
+  
+  .convite {
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  
+  /* ===== REDES SOCIAIS ===== */
+  .botao-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: var(--raio);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  
+  .botao-social:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25); }
+  
+  .botao-social svg { width: 22px; height: 22px; fill: currentColor; }
+  
+  .instagram { background: linear-gradient(45deg, #f09433, #dc2743 50%, #bc1888); }
+  .youtube { background: #ff0000; }
+  
+  .botao-refazer {
+    background: none;
+    border: 0;
+    color: var(--tinta-suave);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 8px;
+    padding: 8px;
+  }
+  
+  .rodape {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+    margin-top: 22px;
+  }
+  
+  .escondido { display: none; }
+  
+  /* ===== RESPONSIVO ===== */
+  @media (max-width: 520px) {
+    body { padding: 18px 12px 40px; }
+    .container { padding: 26px 20px 24px; border-radius: 22px; }
+    .avatar { width: 92px; height: 92px; }
+    .pergunta legend { font-size: 17px; }
+    .opcao { font-size: 15px; padding: 12px 13px; }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
